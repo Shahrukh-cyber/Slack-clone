@@ -6,23 +6,36 @@ import {
   Link
 } from "react-router-dom";
 import styled from 'styled-components';
-import Header from './Component/Header/Header';
+import { Header, Sidebar, ChatSection, AddChannelModel } from './Component';
 function App() {
   return (
     <div className='app' >
       {/* Header  */}
       {/* Sidebar */}
       {/* ChatSection */}
-      <Router>
 
-        <Switch>
-          <Route path="/">
-            <Header />
-          </Route>
-        </Switch>
+      <Router>
+        <>
+
+          <Header />
+          <AppBody>
+            <Sidebar />
+
+            <Switch>
+              <Route path="/">
+                {/* <ChatSection /> */}
+              </Route>
+            </Switch>
+          </AppBody>
+
+        </>
       </Router>
     </div>
   );
 }
 
 export default App;
+const AppBody = styled.div`
+display: flex;
+height: 100vh;
+`

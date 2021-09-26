@@ -9,7 +9,9 @@ const Header = () => {
   return (
     <HeaderContainer>
       <HeaderLeft>
-        <HeaderAvatar />
+        <HeaderAvatar>
+          M
+        </HeaderAvatar>
         <AccessTimeIcon />
       </HeaderLeft>
       {/* Header_Search */}
@@ -51,6 +53,7 @@ justify-content: space-between;
 `
 const HeaderAvatar = styled(Avatar)`
 cursor: pointer;
+background-color:#E56117 !important;
 :hover{
   opacity: 0.8;
 }
