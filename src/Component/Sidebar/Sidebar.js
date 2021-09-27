@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import styled from 'styled-components';
 import FiberManualRecordIcon from '@material-ui/icons/FiberManualRecord'
 import CreateIcon from '@material-ui/icons/Create'
@@ -13,7 +13,31 @@ import FileCopyIcon from '@material-ui/icons/FileCopy';
 import ExpandLessIcon from '@material-ui/icons/ExpandLess';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import AddIcon from '@material-ui/icons/Add';
+import { db } from '../../Api/firebase'
+import { collection, getDocs } from 'firebase/firestore';
+
 const Sidebar = () => {
+  const [channel, setChannel] = useState([]);
+
+  useEffect(() => {
+    const getData = async () => {
+      const querySnapshot = await getDocs(collection(db, 'rooms'))
+      setChannel(
+        querySnapshot.docs.map(
+          (doc) => (
+            // console.log('doc', doc.data()),
+            {
+              id: doc.id,
+              data: doc.data(),
+            }
+          )
+        )
+      )
+    }
+    getData()
+
+  }, [])
+
   return (
     <SiderbarContainer>
       <SiderbarHeader>
@@ -38,7 +62,12 @@ const Sidebar = () => {
       <hr />
       <SidebarOption Icon={ExpandMoreIcon} title='Channel' />
       <hr />
-      <SidebarOption Icon={AddIcon} addChannelOption={true} title='Add Channel' />
+      <SidebarOption Icon={AddIcon} addChannelOption title='Add Channel' />
+      {channel?.map(({ id, data: { name } }) => (
+        <SidebarOption key={id} id={id} title={name} />
+
+
+      ))}
     </SiderbarContainer>
   )
 }

@@ -7,7 +7,13 @@ import {
 } from "react-router-dom";
 import styled from 'styled-components';
 import { Header, Sidebar, ChatSection, AddChannelModel } from './Component';
+import { useSelector } from 'react-redux'
+import { selectRoomId } from '../src/features/appSlice'
+
+
 function App() {
+  const select = useSelector(selectRoomId)
+  console.log('select', select)
   return (
     <div className='app' >
       {/* Header  */}
@@ -23,7 +29,7 @@ function App() {
 
             <Switch>
               <Route path="/">
-                {/* <ChatSection /> */}
+                <ChatSection />
               </Route>
             </Switch>
           </AppBody>
