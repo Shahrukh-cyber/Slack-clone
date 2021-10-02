@@ -2,10 +2,11 @@ import React, { useRef, useEffect } from 'react'
 import styled from 'styled-components';
 import { db } from '../../Api/firebase'
 import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
-
+import { selectUser } from '../../features/userSlice';
+import { useSelector } from 'react-redux';
 
 const ChatInput = ({ channelName, ChannelId }) => {
-
+ const user = useSelector(selectUser);
 
  const inputRef = useRef(null);
 
@@ -20,9 +21,9 @@ const ChatInput = ({ channelName, ChannelId }) => {
   const docRef = await
    addDoc(collection(db, 'rooms', ChannelId, 'messages'), {
     message: inputRef.current.value,
-    user: 'Muhammad Shahrukh',
+    user: user?.displayName,
     timestamp: serverTimestamp(),
-    userImage: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQd_1CTN8w-y7jjds73SniKUB3f9PRchJjKvA&usqp=CAU'
+    userImage: user?.photoURL,
 
    })
 

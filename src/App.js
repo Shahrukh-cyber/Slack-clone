@@ -6,41 +6,56 @@ import {
   Link
 } from "react-router-dom";
 import styled from 'styled-components';
-import { Header, Sidebar, ChatSection, AddChannelModel } from './Component';
+import { Header, Sidebar, ChatSection, Login } from './Component';
+import { login, logout, selectUser } from './features/userSlice';
 import { useSelector } from 'react-redux'
 import { selectRoomId } from '../src/features/appSlice'
 import { auth } from './Api/firebase'
+import { useDispatch } from 'react-redux';
 
 
 function App() {
-  const select = useSelector(selectRoomId)
-
+  const select = useSelector(selectRoomId);
+  const user = useSelector(selectUser);
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    // auth.onAuthStateChanged((userCre))
+    debugger;
+    auth.onAuthStateChanged((userCredential) => {
+      if (userCredential) {
+        dispatch(login({
+          email: userCredential.email,
+          uid: userCredential.uid,
+          displayName: userCredential.displayName,
+          photoURL: userCredential.photoURL,
+
+        }))
+      } else {
+        dispatch(logout());
+      }
+
+    })
   }, [])
-  console.log('select', select)
   return (
     <div className='app' >
-      {/* Header  */}
-      {/* Sidebar */}
-      {/* ChatSection */}
 
       <Router>
-        <>
 
-          <Header />
-          <AppBody>
-            <Sidebar />
+        {user ?
+          <>
 
-            <Switch>
-              <Route path="/">
-                <ChatSection />
-              </Route>
-            </Switch>
-          </AppBody>
+            <Header />
+            <AppBody>
+              <Sidebar />
 
-        </>
+              <Switch>
+                <Route path="/">
+                  <ChatSection />
+                </Route>
+              </Switch>
+            </AppBody>
+
+          </> : <Login />}
       </Router>
     </div>
   );

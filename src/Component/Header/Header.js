@@ -2,15 +2,26 @@ import React from 'react'
 import AccessTimeIcon from '@material-ui/icons/AccessTime';
 import HelpOutlineIcon from '@material-ui/icons/HelpOutline';
 import SearchIcon from '@material-ui/icons/Search'
+import { useSelector } from 'react-redux';
 import { Avatar } from '@material-ui/core';
-
+import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
+import { logout, selectUser } from '../../features/userSlice'
+import { auth } from '../../Api/firebase'
 const Header = () => {
+  const user = useSelector(selectUser)
+  console.log('userPhotourl', user)
+  const dispatch = useDispatch();
+  const logoutUser = () => {
+    dispatch(logout());
+    auth.signOut();
+  }
+
   return (
     <HeaderContainer>
-      <HeaderLeft>
-        <HeaderAvatar>
-          M
+      <HeaderLeft onClick={() => logoutUser()}>
+        <HeaderAvatar src={user?.photoURL}>
+          {user?.displayName[0]}
         </HeaderAvatar>
         <AccessTimeIcon />
       </HeaderLeft>
