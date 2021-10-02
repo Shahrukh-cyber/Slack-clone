@@ -4,25 +4,25 @@ import { signInWithPopup } from 'firebase/auth'
 import { auth, provider } from '../../Api/firebase'
 
 const Login = () => {
- const signIn = () => {
-  signInWithPopup(auth, provider).catch((error) =>
-   alert(error.message));
+  const signIn = () => {
+    signInWithPopup(auth, provider).catch((error) =>
+      alert(error.message));
 
 
- }
+  }
 
 
- return (
-  <LoginContainer>
-   <LoginInnerContainer>
-    <img src="https://cdn.dribbble.com/users/121337/screenshots/5885287/slack.png?compress=1&resize=400x300" alt="" />
-    <h1 className='red'>Sign in to the Slack Clone</h1>
-    <p>slack-clone.com</p>
-    <button onClick={signIn} className='red'>Sign in with Google</button>
-   </LoginInnerContainer>
+  return (
+    <LoginContainer>
+      <LoginInnerContainer>
+        <img src="https://cdn.dribbble.com/users/121337/screenshots/5885287/slack.png?compress=1&resize=400x300" alt="" />
+        <h1 className='red'>Sign in to the Slack Clone</h1>
+        <p>slack-clone.com</p>
+        <button onClick={signIn} className='red'>Sign in with Google</button>
+      </LoginInnerContainer>
 
-  </LoginContainer>
- )
+    </LoginContainer>
+  )
 }
 
 export default Login;
@@ -51,7 +51,8 @@ margin-bottom:40px ;
  color:white;
  padding: 10px;
  border-style: none;
- border-radius: 20px; 
+ border-radius: 20px;
+ cursor:pointer ;
 }
 
 
