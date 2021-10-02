@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import {
   BrowserRouter as Router,
   Switch,
@@ -9,10 +9,16 @@ import styled from 'styled-components';
 import { Header, Sidebar, ChatSection, AddChannelModel } from './Component';
 import { useSelector } from 'react-redux'
 import { selectRoomId } from '../src/features/appSlice'
+import { auth } from './Api/firebase'
 
 
 function App() {
   const select = useSelector(selectRoomId)
+
+
+  useEffect(() => {
+    // auth.onAuthStateChanged((userCre))
+  }, [])
   console.log('select', select)
   return (
     <div className='app' >
